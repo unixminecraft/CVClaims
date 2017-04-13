@@ -1,0 +1,15 @@
+name: CVClaims
+main: org.cubeville.cvclaims.CVClaims
+authors: [FrediW]
+version: 0.1
+depend: [CVTools]
+
+commands:
+  claimrg:
+    description: Claim the current WE selection
+
+  claimhere:
+    description: Claim a piece of land centered around the player
+
+  subzone:
+    description: Create subzones of existing regions
