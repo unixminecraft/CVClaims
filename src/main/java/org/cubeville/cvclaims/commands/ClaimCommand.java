@@ -25,6 +25,9 @@ public class ClaimCommand extends Command
     public ClaimCommand(ClaimManager claimManager) {
         super("");
         addBaseParameter(new CommandParameterString()); // Region name
+        addOptionalBaseParameter(new CommandParameterString());
+        addOptionalBaseParameter(new CommandParameterString());
+        addOptionalBaseParameter(new CommandParameterString());
         addFlag("flat"); // Force claiming of flat regions
         this.claimManager = claimManager;
     }
@@ -42,6 +45,10 @@ public class ClaimCommand extends Command
         }
 
         String regionName = (String) baseParameters.get(0);
+        for(int i = 1; i < baseParameters.size(); i++) {
+            regionName += "_" + baseParameters.get(i);
+        }
+        
         // Check name for invalid chars,
         claimManager.claimPlayerRegion(player, new BlockVector(selection.getNativeMinimumPoint()), new BlockVector(selection.getNativeMaximumPoint()), regionName);
 

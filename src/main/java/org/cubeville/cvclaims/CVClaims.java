@@ -42,7 +42,7 @@ public class CVClaims extends JavaPlugin {
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equals("claimrg")) {
+        if(command.getName().equals("claim")) {
             return claimCommandParser.execute(sender, args);
         }
         else if(command.getName().equals("claimhere")) {

@@ -90,6 +90,9 @@ public class ClaimManager
         int ret = 3;
         if(player.hasPermission("cvclaims.max.4")) ret = 4;
         if(player.hasPermission("cvclaims.max.5")) ret = 5;
+        if(player.hasPermission("cvclaims.max.6")) ret = 6;
+        if(player.hasPermission("cvclaims.max.7")) ret = 6;
+        if(player.hasPermission("cvclaims.max.8")) ret = 6;
         return ret;
     }
     

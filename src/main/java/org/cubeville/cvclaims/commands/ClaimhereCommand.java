@@ -22,7 +22,6 @@ public class ClaimhereCommand extends Command
 
     public ClaimhereCommand(ClaimManager claimManager) {
         super("");
-        addBaseParameter(new CommandParameterString());
         this.claimManager = claimManager;
     }
 

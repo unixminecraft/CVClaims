@@ -5,11 +5,13 @@ version: 0.1
 depend: [CVTools]
 
 commands:
-  claimrg:
+  claim:
     description: Claim the current WE selection
-
+    permission: cvclaims.claim
+    
   claimhere:
     description: Claim a piece of land centered around the player
-
+    permission: cvclaims.claim
+    
   subzone:
     description: Create subzones of existing regions
