@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.sk89q.worldedit.BlockVector;
@@ -25,7 +26,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class ClaimManager
+public class ClaimManager implements Listener
 {
     WorldGuardPlugin worldGuard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
 
@@ -91,8 +92,7 @@ public class ClaimManager
         if(player.hasPermission("cvclaims.max.4")) ret = 4;
         if(player.hasPermission("cvclaims.max.5")) ret = 5;
         if(player.hasPermission("cvclaims.max.6")) ret = 6;
-        if(player.hasPermission("cvclaims.max.7")) ret = 6;
-        if(player.hasPermission("cvclaims.max.8")) ret = 6;
+        if(player.hasPermission("cvclaims.max.7")) ret = 7;
         return ret;
     }
     
@@ -140,8 +140,8 @@ public class ClaimManager
         RegionManager regionManager = worldGuard.getRegionManager(player.getLocation().getWorld());
         
         ProtectedRegion parentRegion = regionManager.getRegion(parentRegionName);
-        if(!(parentRegion instanceof ProtectedCuboidRegion)) throw new IllegalArgumentException("Subzoning is only possible within cuboid regions.");
         if(parentRegion == null) throw new IllegalArgumentException("Region " + parentRegionName + " does not exist.");
+        if(!(parentRegion instanceof ProtectedCuboidRegion)) throw new IllegalArgumentException("Subzoning is only possible within cuboid regions.");
         if(regionManager.getRegion(childRegionName) != null) throw new IllegalArgumentException("Region " + childRegionName + " already exists.");
         if(!(parentRegion.contains(min) && parentRegion.contains(max))) throw new IllegalArgumentException("The subzone must be completely in the parent region!");
 

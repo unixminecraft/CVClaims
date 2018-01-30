@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.cubeville.commons.commands.CommandParser;
@@ -39,6 +40,9 @@ public class CVClaims extends JavaPlugin {
 
         subzoneCommandParser = new CommandParser();
         subzoneCommandParser.addCommand(new SubzoneCommand(claimManager));
+
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(claimManager, this);
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
