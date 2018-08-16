@@ -22,6 +22,10 @@ public class ClaimhereCommand extends Command
 
     public ClaimhereCommand(ClaimManager claimManager) {
         super("");
+        addOptionalBaseParameter(new CommandParameterString()); // Optional region name.
+        addOptionalBaseParameter(new CommandParameterString());
+        addOptionalBaseParameter(new CommandParameterString());
+        addOptionalBaseParameter(new CommandParameterString());
         this.claimManager = claimManager;
     }
 
@@ -31,7 +35,16 @@ public class ClaimhereCommand extends Command
         Location loc = player.getLocation();
         BlockVector min = new BlockVector(loc.getBlockX() - 14, 0, loc.getBlockZ() - 14);
         BlockVector max = new BlockVector(loc.getBlockX() + 14, 255, loc.getBlockZ() + 14);
-        claimManager.claimPlayerRegion(player, min, max, null);
+        if(baseParameters.size() == 0) {
+            claimManager.claimPlayerRegion(player, min, max, null);
+        }
+        else {
+            String regionName = (String) baseParameters.get(0);
+            for(int i = 1; i < baseParameters.size(); i++) {
+                regionName += "_" + baseParameters.get(i);
+            }
+            claimManager.claimPlayerRegion(player, min, max, regionName);
+        }
 
         return new CommandResponse("&eSuccessfully claimed region.");
     }
