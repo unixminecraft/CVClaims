@@ -18,9 +18,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.sk89q.worldedit.BlockVector;
-
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
@@ -96,8 +97,8 @@ public class ClaimManager implements Listener
         return ret;
     }
     
-    public void claimPlayerRegion(Player player, BlockVector min, BlockVector max, String regionName) {
-        RegionManager regionManager = worldGuard.getRegionManager(player.getLocation().getWorld());
+    public void claimPlayerRegion(Player player, BlockVector3 min, BlockVector3 max, String regionName) {
+    	RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(player.getLocation().getWorld()));
 
         if(regionName == null) {
             for(int i = 1; i < 100; i++) {
@@ -135,9 +136,9 @@ public class ClaimManager implements Listener
         save(player.getUniqueId());
     }
 
-    public void createSubzone(Player player, String parentRegionName, BlockVector min, BlockVector max, String childRegionName) {
-
-        RegionManager regionManager = worldGuard.getRegionManager(player.getLocation().getWorld());
+    public void createSubzone(Player player, String parentRegionName, BlockVector3 min, BlockVector3 max, String childRegionName) {
+    	
+    	RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(player.getLocation().getWorld()));
         
         ProtectedRegion parentRegion = regionManager.getRegion(parentRegionName);
         if(parentRegion == null) throw new IllegalArgumentException("Region " + parentRegionName + " does not exist.");

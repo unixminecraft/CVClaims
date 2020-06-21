@@ -6,9 +6,8 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.Region;
 
 import org.cubeville.commons.utils.BlockUtils;
 import org.cubeville.commons.commands.Command;
@@ -35,9 +34,9 @@ public class ClaimCommand extends Command
     public CommandResponse execute(Player player, Set<String> flags, Map<String, Object> parameters, List<Object> baseParameters)
         throws CommandExecutionException {
 
-        Selection selection = BlockUtils.getWESelection(player);
+        Region selection = BlockUtils.getWESelection(player);
         if(selection == null) throw new CommandExecutionException("Please make a selection first."); // TODO: Better documentation?
-        if(!(selection instanceof CuboidSelection)) throw new CommandExecutionException("This command only works on cuboid selections.");
+        if(!(selection instanceof CuboidRegion)) throw new CommandExecutionException("This command only works on cuboid selections.");
         if(selection.getWidth() > 30 || selection.getLength() > 30) throw new CommandExecutionException("Claimed regions can only be up to 30x30 blocks. Enter \"//size\" to check the size of your current selection (first and third values under \"Size:\", the middle number is the height).");
         if(selection.getWidth() < 5 || selection.getLength() < 5) throw new CommandExecutionException("Claimed region must be at least 5 blocks wide and long. Enter \"//size\" to check the size of your current selection (first and third values under \"Size:\", the middle number is the height).");
         if(selection.getHeight() < 30) {
@@ -50,7 +49,7 @@ public class ClaimCommand extends Command
         }
         
         // Check name for invalid chars,
-        claimManager.claimPlayerRegion(player, new BlockVector(selection.getNativeMinimumPoint()), new BlockVector(selection.getNativeMaximumPoint()), regionName);
+        claimManager.claimPlayerRegion(player, selection.getMinimumPoint(), selection.getMaximumPoint(), regionName);
 
         return new CommandResponse("&eSuccessfully claimed region " + regionName);
     }

@@ -7,7 +7,7 @@ import java.util.Set;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.math.BlockVector3;
 
 import org.cubeville.commons.commands.Command;
 import org.cubeville.commons.commands.CommandExecutionException;
@@ -33,8 +33,8 @@ public class ClaimhereCommand extends Command
         throws CommandExecutionException {
 
         Location loc = player.getLocation();
-        BlockVector min = new BlockVector(loc.getBlockX() - 14, 0, loc.getBlockZ() - 14);
-        BlockVector max = new BlockVector(loc.getBlockX() + 14, 255, loc.getBlockZ() + 14);
+        BlockVector3 min = BlockVector3.at(loc.getBlockX() - 14, 0, loc.getBlockZ() - 14);
+        BlockVector3 max = BlockVector3.at(loc.getBlockX() + 14, 255, loc.getBlockZ() + 14);
         if(baseParameters.size() == 0) {
             claimManager.claimPlayerRegion(player, min, max, null);
         }

@@ -3,6 +3,7 @@ main: org.cubeville.cvclaims.CVClaims
 authors: [FrediW]
 version: 0.1
 depend: [CVTools]
+api-version: 1.15
 
 commands:
   claim:
